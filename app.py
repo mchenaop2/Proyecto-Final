@@ -39,7 +39,13 @@ col1, col2, col3 = st.columns([1, 2, 1])  # La columna central es más ancha par
 
 with col2:
     st.subheader("Control de Funciones")
-
+       with st.expander("See explanation"):
+        st.write('''
+        The chart above shows some numbers I picked for you.
+        I rolled actual dice for these, so they're *guaranteed* to
+        be random.
+       ''')
+       st.button("Luces 2",key="otro")    
     # Botón de luces con persistencia de estado
     if st.button('Luces'):
         st.session_state.luces = not st.session_state.luces  # Alterna el estado de luces
