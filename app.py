@@ -1,20 +1,14 @@
 import paho.mqtt.client as paho
-import time
 import streamlit as st
 import json
-import platform
 
-# Muestra la versión de Python junto con detalles adicionales
-st.write("Versión de Python:", platform.python_version())
-
-# Configuración del broker
+# Configuración del broker MQTT
 broker = "broker.mqttdashboard.com"
 port = 1883
 
 # Funciones MQTT
 def on_publish(client, userdata, result):
     print("El dato ha sido publicado \n")
-    pass
 
 def publish_message(topic, message):
     client = paho.Client("GIT-HUB")
@@ -22,47 +16,44 @@ def publish_message(topic, message):
     client.connect(broker, port)
     client.publish(topic, json.dumps(message))
 
-# Título y logo
+# Interfaz de usuario
 st.title("Casa Inteligente")
-st.image("LOGO.png", use_column_width=True)  # Cambia "ruta_al_logo.png" a la ruta de tu logo
+st.image("logo.png", use_column_width=True)  # Cambia "logo.png" a la ruta de tu logo en el repositorio
 
-# Almacenar el estado de los botones en `st.session_state`
-if 'luces' not in st.session_state:
-    st.session_state.luces = False
-if 'musica' not in st.session_state:
-    st.session_state.musica = False
-if 'temperatura' not in st.session_state:
-    st.session_state.temperatura = 0.0
-
-# Columnas para centrar los botones en el medio
-col1, col2, col3 = st.columns([1, 2, 1])  # La columna central es más ancha para centrar los botones
+# Crear columnas para centrar los botones principales
+col1, col2, col3 = st.columns([1, 2, 1])
 
 with col2:
     st.subheader("Control de Funciones")
-    with st.expander("See explanation"):
-        st.write('''The chart above shows ''')
-        st.button("Luces 2",key="otro")    
-    # Botón de luces con persistencia de estado
-    if st.button('Luces'):
-        st.session_state.luces = not st.session_state.luces  # Alterna el estado de luces
-        if st.session_state.luces:
-            publish_message("cmqtt_luces", {"Luces": "ON"})
-        else:
-            publish_message("cmqtt_luces", {"Luces": "OFF"})
-        st.write("Luces encendidas" if st.session_state.luces else "Luces apagadas")
-
-    # Botón de música con persistencia de estado
-    if st.button('Música'):
-        st.session_state.musica = not st.session_state.musica  # Alterna el estado de música
-        if st.session_state.musica:
-            publish_message("cmqtt_musica", {"Musica": "Play"})
-        else:
-            publish_message("cmqtt_musica", {"Musica": "Stop"})
-        st.write("Música reproduciendo" if st.session_state.musica else "Música detenida")
-
-    # Control de temperatura con slider y botón de envío
-    temp = st.slider('Temperatura', 0.0, 100.0, st.session_state.temperatura)
-    if st.button('Enviar temperatura'):
-        st.session_state.temperatura = temp
-        publish_message("cmqtt_temperatura", {"Temperatura": temp})
-        st.write(f"Temperatura ajustada a {temp} °C")
+    
+    # Sección de Luces
+    if st.button("Luces"):
+        st.write("Selecciona un modo de luces:")
+        if st.button("Relajación"):
+            publish_message("cmqtt_luces", {"Luces": "Cálidas y tenues"})
+        elif st.button("Concentración"):
+            publish_message("cmqtt_luces", {"Luces": "Frías"})
+        elif st.button("Fiesta"):
+            publish_message("cmqtt_luces", {"Luces": "Colores"})
+        elif st.button("Despertar"):
+            publish_message("cmqtt_luces", {"Luces": "Aumento gradual"})
+        elif st.button("Cine"):
+            publish_message("cmqtt_luces", {"Luces": "Apagadas"})
+    
+    # Sección de Música
+    if st.button("Música"):
+        st.write("Selecciona una emoción para la música:")
+        
+        col_music1, col_music2 = st.columns(2)
+        
+        with col_music1:
+            if st.button("🎵 Tristeza"):
+                publish_message("cmqtt_musica", {"Musica": "Tristeza"})
+            if st.button("🎵 Romántico"):
+                publish_message("cmqtt_musica", {"Musica": "Romántico"})
+                
+        with col_music2:
+            if st.button("🎵 Felicidad"):
+                publish_message("cmqtt_musica", {"Musica": "Felicidad"})
+            if st.button("🎵 Meditación"):
+                publish_message("cmqtt_musica", {"Musica": "Meditación"})
