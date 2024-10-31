@@ -30,7 +30,7 @@ port=1883
 
 
 
-st.title("MQTT Control")
+st.title("Casa Inteligente")
 
 if st.button('ON'):
     act1="ON"
