@@ -26,30 +26,41 @@ def publish_message(topic, message):
 st.title("Casa Inteligente")
 st.image("LOGO.png", use_column_width=True)  # Cambia "ruta_al_logo.png" a la ruta de tu logo
 
-# Crear espacio para centrar el menú en la pantalla
-st.write("###")  # Salto de línea para centrar verticalmente
+# Almacenar el estado de los botones en `st.session_state`
+if 'luces' not in st.session_state:
+    st.session_state.luces = False
+if 'musica' not in st.session_state:
+    st.session_state.musica = False
+if 'temperatura' not in st.session_state:
+    st.session_state.temperatura = 0.0
 
 # Columnas para centrar los botones en el medio
 col1, col2, col3 = st.columns([1, 2, 1])  # La columna central es más ancha para centrar los botones
 
 with col2:
     st.subheader("Control de Funciones")
+
+    # Botón de luces con persistencia de estado
     if st.button('Luces'):
-        st.write("Selecciona un modo para las luces:")
-        if st.button('Encender Luces'):
+        st.session_state.luces = not st.session_state.luces  # Alterna el estado de luces
+        if st.session_state.luces:
             publish_message("cmqtt_luces", {"Luces": "ON"})
-        elif st.button('Apagar Luces'):
+        else:
             publish_message("cmqtt_luces", {"Luces": "OFF"})
-    
+        st.write("Luces encendidas" if st.session_state.luces else "Luces apagadas")
+
+    # Botón de música con persistencia de estado
     if st.button('Música'):
-        st.write("Selecciona un modo para la música:")
-        if st.button('Reproducir Música'):
+        st.session_state.musica = not st.session_state.musica  # Alterna el estado de música
+        if st.session_state.musica:
             publish_message("cmqtt_musica", {"Musica": "Play"})
-        elif st.button('Detener Música'):
+        else:
             publish_message("cmqtt_musica", {"Musica": "Stop"})
-    
-    if st.button('Temperatura'):
-        st.write("Selecciona un valor de temperatura:")
-        temp = st.slider('Temperatura', 0.0, 100.0)
-        if st.button('Enviar temperatura'):
-            publish_message("cmqtt_temperatura", {"Temperatura": temp})
+        st.write("Música reproduciendo" if st.session_state.musica else "Música detenida")
+
+    # Control de temperatura con slider y botón de envío
+    temp = st.slider('Temperatura', 0.0, 100.0, st.session_state.temperatura)
+    if st.button('Enviar temperatura'):
+        st.session_state.temperatura = temp
+        publish_message("cmqtt_temperatura", {"Temperatura": temp})
+        st.write(f"Temperatura ajustada a {temp} °C")
