@@ -50,7 +50,7 @@ with col2:
             publish_message("cmqtt_luces", {"Luces": "Apagadas"})
 
     # Botón para Música con persistencia de estado
-    st.link_button("Go to gallery", "https://streamlit.io/gallery")
+    st.link_button("Temperatura", "https://streamlit.io/gallery")
 
     if st.button("Música"):
         st.session_state.show_music_options = not st.session_state.show_music_options
