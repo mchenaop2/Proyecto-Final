@@ -7,71 +7,49 @@ import platform
 # Muestra la versión de Python junto con detalles adicionales
 st.write("Versión de Python:", platform.python_version())
 
-values = 0.0
-act1="OFF"
+# Configuración del broker
+broker = "broker.mqttdashboard.com"
+port = 1883
 
-def on_publish(client,userdata,result):             #create function for callback
-    print("el dato ha sido publicado \n")
+# Funciones MQTT
+def on_publish(client, userdata, result):
+    print("El dato ha sido publicado \n")
     pass
 
-def on_message(client, userdata, message):
-    global message_received
-    time.sleep(2)
-    message_received=str(message.payload.decode("utf-8"))
-    st.write(message_received)
+def publish_message(topic, message):
+    client = paho.Client("GIT-HUB")
+    client.on_publish = on_publish
+    client.connect(broker, port)
+    client.publish(topic, json.dumps(message))
 
-        
-
-
-broker="broker.mqttdashboard.com"
-port=1883
-#client1= paho.Client("GIT-HUB")
-#client1.on_message = on_message
-
-
-
+# Título y logo
 st.title("Casa Inteligente")
+st.image("ruta_al_logo.png", use_column_width=True)  # Cambia "ruta_al_logo.png" a la ruta de tu logo
 
-if st.button('ON'):
-    act1="ON"
-    client1= paho.Client("GIT-HUB")                           
-    client1.on_publish = on_publish                          
-    client1.connect(broker,port)  
-    message =json.dumps({"Act1":act1})
-    ret= client1.publish("cmqtt_s", message)
- 
-    #client1.subscribe("Sensores")
+# Crear espacio para centrar el menú en la pantalla
+st.write("###")  # Salto de línea para centrar verticalmente
+
+# Columnas para centrar los botones en el medio
+col1, col2, col3 = st.columns([1, 2, 1])  # La columna central es más ancha para centrar los botones
+
+with col2:
+    st.subheader("Control de Funciones")
+    if st.button('Luces'):
+        st.write("Selecciona un modo para las luces:")
+        if st.button('Encender Luces'):
+            publish_message("cmqtt_luces", {"Luces": "ON"})
+        elif st.button('Apagar Luces'):
+            publish_message("cmqtt_luces", {"Luces": "OFF"})
     
+    if st.button('Música'):
+        st.write("Selecciona un modo para la música:")
+        if st.button('Reproducir Música'):
+            publish_message("cmqtt_musica", {"Musica": "Play"})
+        elif st.button('Detener Música'):
+            publish_message("cmqtt_musica", {"Musica": "Stop"})
     
-else:
-    st.write('')
-
-if st.button('OFF'):
-    act1="OFF"
-    client1= paho.Client("GIT-HUB")                           
-    client1.on_publish = on_publish                          
-    client1.connect(broker,port)  
-    message =json.dumps({"Act1":act1})
-    ret= client1.publish("cmqtt_s", message)
-  
-    
-else:
-    st.write('')
-
-values = st.slider('Selecciona el rango de valores',0.0, 100.0)
-st.write('Values:', values)
-
-if st.button('Enviar valor analógico'):
-    client1= paho.Client("GIT-HUB")                           
-    client1.on_publish = on_publish                          
-    client1.connect(broker,port)   
-    message =json.dumps({"Analog": float(values)})
-    ret= client1.publish("cmqtt_a", message)
-    
- 
-else:
-    st.write('')
-
-
-
-
+    if st.button('Temperatura'):
+        st.write("Selecciona un valor de temperatura:")
+        temp = st.slider('Temperatura', 0.0, 100.0)
+        if st.button('Enviar temperatura'):
+            publish_message("cmqtt_temperatura", {"Temperatura": temp})
