@@ -69,3 +69,5 @@ with col2:
                 publish_message("cmqtt_musica", {"Musica": "Felicidad"})
             if st.button("🎵 Meditación"):
                 publish_message("cmqtt_musica", {"Musica": "Meditación"})
+                
+        st.link_button("Go to gallery", "https://streamlit.io/gallery")
