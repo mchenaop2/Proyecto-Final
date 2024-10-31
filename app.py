@@ -24,7 +24,7 @@ def publish_message(topic, message):
 
 # Título y logo
 st.title("Casa Inteligente")
-st.image("ruta_al_logo.png", use_column_width=True)  # Cambia "ruta_al_logo.png" a la ruta de tu logo
+st.image("LOGO.png", use_column_width=True)  # Cambia "ruta_al_logo.png" a la ruta de tu logo
 
 # Crear espacio para centrar el menú en la pantalla
 st.write("###")  # Salto de línea para centrar verticalmente
