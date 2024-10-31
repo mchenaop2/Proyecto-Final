@@ -39,7 +39,7 @@ col1, col2, col3 = st.columns([1, 2, 1])  # La columna central es más ancha par
 
 with col2:
     st.subheader("Control de Funciones")
-       with st.expander("See explanation"):
+    with st.expander("See explanation"):
         st.write('''
         The chart above shows some numbers I picked for you.
         I rolled actual dice for these, so they're *guaranteed* to
