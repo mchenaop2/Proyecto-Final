@@ -40,8 +40,8 @@ with col2:
    
 
     # Botón para Música con persistencia de estado
-    if st.button("Temperatura")
-    st.link_button("grados", "https://auiluminacion.streamlit.app/")
+    if st.button("Música")
+    st.link_button("Playlist", "https://auiluminacion.streamlit.app/")
 
     if st.button("Música"):
         st.session_state.show_music_options = not st.session_state.show_music_options
