@@ -33,7 +33,7 @@ with col2:
     st.subheader("Control de Funciones")
 
     # Botón para Luces con persistencia de estado
-    if st.button("Luces"):
+   
         st.link_button("Iluminación", "https://clase-9-mflbrgrvxqeszl3edhdegx.streamlit.app/")
 
 
