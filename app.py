@@ -40,26 +40,5 @@ with col2:
    
 
     # Botón para Música con persistencia de estado
-    if st.button("Música")
-    st.link_button("Playlist", "https://auiluminacion.streamlit.app/")
-
     if st.button("Música"):
-        st.session_state.show_music_options = not st.session_state.show_music_options
-
-    if st.session_state.show_music_options:
-        st.write("Selecciona una emoción para la música:")
-
-        col_music1, col_music2 = st.columns(2)
-
-        with col_music1:
-            if st.button("🎵 Tristeza"):
-                publish_message("cmqtt_musica", {"Musica": "Tristeza"})
-            if st.button("🎵 Romántico"):
-                publish_message("cmqtt_musica", {"Musica": "Romántico"})
-
-        with col_music2:
-            if st.button("🎵 Felicidad"):
-                publish_message("cmqtt_musica", {"Musica": "Felicidad"})
-            if st.button("🎵 Meditación"):
-                publish_message("cmqtt_musica", {"Musica": "Meditación"})
-                
+    st.link_button("Playlist", "https://auiluminacion.streamlit.app/")
