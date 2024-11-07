@@ -42,3 +42,13 @@ with col2:
     # Botón para Música con persistencia de estado
     if st.button("Música"):
         st.link_button("Playlist", "https://musica.streamlit.app/")
+
+
+ if st.button("Temperatura"):
+        st.link_button("Grados", "https://temperatura.streamlit.app/")
+
+
+
+
+
+
