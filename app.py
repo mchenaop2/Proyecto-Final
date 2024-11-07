@@ -37,20 +37,7 @@ with col2:
         st.link_button("Iluminación", "https://clase-9-mflbrgrvxqeszl3edhdegx.streamlit.app/")
 
 
-        st.session_state.show_lights_options = not st.session_state.show_lights_options
-
-    if st.session_state.show_lights_options:
-        st.write("Selecciona un modo de luces:")
-        if st.button("Relajación"):
-            publish_message("cmqtt_luces", {"Luces": "Cálidas y tenues"})
-        elif st.button("Concentración"):
-            publish_message("cmqtt_luces", {"Luces": "Frías"})
-        elif st.button("Fiesta"):
-            publish_message("cmqtt_luces", {"Luces": "Colores"})
-        elif st.button("Despertar"):
-            publish_message("cmqtt_luces", {"Luces": "Aumento gradual"})
-        elif st.button("Cine"):
-            publish_message("cmqtt_luces", {"Luces": "Apagadas"})
+   
 
     # Botón para Música con persistencia de estado
     st.link_button("Temperatura", "https://streamlit.io/gallery")
