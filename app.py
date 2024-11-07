@@ -27,28 +27,21 @@ if 'show_music_options' not in st.session_state:
     st.session_state.show_music_options = False
 
 # Crear columnas para centrar los botones principales
-col1, col2, col3 = st.columns([1, 2, 3])
 
-with col1:
-    st.subheader("Control de Funciones")
 
     # Botón para Luces con persistencia de estado
-    if st.button("Luces"):
-        st.link_button("Iluminación", "https://clase-9-mflbrgrvxqeszl3edhdegx.streamlit.app/")
+if st.button("Luces"):
+     st.link_button("Iluminación", "https://clase-9-mflbrgrvxqeszl3edhdegx.streamlit.app/")
 
 
-   
-with col2:
-    st.subheader("Control de Funciones")
+
     # Botón para Música con persistencia de estado
-    if st.button("Música"):
-        st.link_button("Playlist", "https://musica.streamlit.app/")
+if st.button("Música"):
+    st.link_button("Playlist", "https://musica.streamlit.app/")
 
-with col3:
-    st.subheader("Control de Funciones")
     
-    if st.button("Temperatura"):
-        st.link_button("Grados", "https://temperatura.streamlit.app/")
+if st.button("Temperatura"):
+    st.link_button("Grados", "https://temperatura.streamlit.app/")
 
 
 
