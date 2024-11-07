@@ -34,7 +34,7 @@ with col2:
 
     # Botón para Luces con persistencia de estado
     if st.button("Luces"):
-        st.link_button("Go to gallery", "https://clase-9-mflbrgrvxqeszl3edhdegx.streamlit.app/")
+        st.link_button("Iluminación", "https://clase-9-mflbrgrvxqeszl3edhdegx.streamlit.app/")
 
 
         st.session_state.show_lights_options = not st.session_state.show_lights_options
