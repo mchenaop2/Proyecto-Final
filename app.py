@@ -2,22 +2,7 @@ import paho.mqtt.client as paho
 import streamlit as st
 import json
 
-# Ruta a la imagen de fondo
-image_base64 = get_base64_image("Fondo.png")  
-# CSS para personalización de fondo y tipografía
-st.markdown(
-    f"""
-    <style>
-    .main {{
-        background-image: url("data:image/png;base64,{image_base64}");
-        background-size: cover;
-        background-repeat: no-repeat;
-        background-position: center;
-    }}
-    </style>
-    """,
-    unsafe_allow_html=True
-)
+
 # Configuración del broker MQTT
 broker = "broker.mqttdashboard.com"
 port = 1883
