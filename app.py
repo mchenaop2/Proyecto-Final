@@ -14,13 +14,6 @@ st.markdown(
         background-repeat: no-repeat;
         background-position: center;
     }}
-    h1, h2, h3, h4, h5, h6, p, label, .stButton button {{
-        font-family: 'Monospace', sans-serif;
-        color: #333333;
-    }}
-    textarea {{
-        background-color: #ffffff;
-    }}
     </style>
     """,
     unsafe_allow_html=True
