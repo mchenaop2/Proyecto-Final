@@ -8,13 +8,23 @@ broker = "broker.mqttdashboard.com"
 port = 1883
 
 # Funciones MQTT
+def on_publish(client, userdata, result):
+    print("El dato ha sido publicado \n")
+
+def publish_message(topic, message):
+    client = paho.Client("GIT-HUB")
+    client.on_publish = on_publish
+    client.connect(broker, port)
+    client.publish(topic, json.dumps(message))
+
+# Función para cargar imagen y convertir a base64
 def get_base64_of_bin_file(bin_file):
     with open(bin_file, 'rb') as f:
         data = f.read()
     return base64.b64encode(data).decode()
 
-# Convertir la imagen de fondo local a base64
-background_image = get_base64_of_bin_file("Fondo.png")  # Cambia a la ruta de tu imagen local
+# Carga la imagen de fondo localmente y conviértela a base64
+background_image = get_base64_of_bin_file("Fondo.png")  # Cambia la ruta a la de tu imagen
 
 # CSS para imagen de fondo
 page_bg_img = f'''
@@ -27,21 +37,16 @@ page_bg_img = f'''
 '''
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
-# Muestra la versión de Python junto con detalles adicionales
-#st.write("Versión de Python:", platform.python_version())
+# Interfaz de usuario
 
-values = 0.0
-act1 = "OFF"
+st.image("LOGO.png", use_column_width=True)  # Cambia "LOGO.png" a la ruta de tu logo en el repositorio
 
-def on_publish(client, userdata, result):  # Función de callback para publicación
-    print("el dato ha sido publicado \n")
-    pass
+# Configurar el estado de los botones en session_state para persistencia
+if 'show_lights_options' not in st.session_state:
+    st.session_state.show_lights_options = False
+if 'show_music_options' not in st.session_state:
+    st.session_state.show_music_options = False
 
-def on_message(client, userdata, message):
-    global message_received
-    time.sleep(2)
-    message_received = str(message.payload.decode("utf-8"))
-    st.write(message_received)
 # Crear columnas para centrar los botones principales
 
 # Botón para Luces con persistencia de estado
