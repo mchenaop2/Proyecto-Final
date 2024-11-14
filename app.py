@@ -28,7 +28,7 @@ page_bg_img = f'''
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Muestra la versión de Python junto con detalles adicionales
-st.write("Versión de Python:", platform.python_version())
+#st.write("Versión de Python:", platform.python_version())
 
 values = 0.0
 act1 = "OFF"
