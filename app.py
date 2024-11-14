@@ -24,21 +24,21 @@ def get_base64_of_bin_file(bin_file):
     return base64.b64encode(data).decode()
 
 # Carga la imagen de fondo localmente y conviértela a base64
-background_image = get_base64_of_bin_file("Fondo.png")  # Cambia la ruta a la de tu imagen
+background_image = get_base64_of_bin_file("Fondo.png")  # Cambia la ruta a la de tu imagen local si es necesario
 
 # CSS para imagen de fondo
 page_bg_img = f'''
 <style>
 .stApp {{
-    background-image: url("data:image/jpg;base64,{background_image}");
+    background-image: url("data:image/png;base64,{background_image}");
     background-size: cover;
+    background-attachment: fixed;
 }}
 </style>
 '''
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Interfaz de usuario
-
 st.image("LOGO.png", use_column_width=True)  # Cambia "LOGO.png" a la ruta de tu logo en el repositorio
 
 # Configurar el estado de los botones en session_state para persistencia
