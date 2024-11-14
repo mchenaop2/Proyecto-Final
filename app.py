@@ -40,8 +40,8 @@ if st.button("Música"):
     st.link_button("Playlist", "https://musica.streamlit.app/")
 
     
-if st.button("Control por voz"):
-    st.link_button("Grados", "https://controlporvoz-zuvfuyxes7wbobtbqgsuat.streamlit.app/")
+
+st.link_button("Control por voz", "https://controlporvoz-zuvfuyxes7wbobtbqgsuat.streamlit.app/")
 
 
 
