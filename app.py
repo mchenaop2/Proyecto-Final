@@ -38,7 +38,7 @@ page_bg_img = f'''
 st.markdown(page_bg_img, unsafe_allow_html=True)
 
 # Interfaz de usuario
-st.title("Casa Inteligente")
+
 st.image("LOGO.png", use_column_width=True)  # Cambia "LOGO.png" a la ruta de tu logo en el repositorio
 
 # Configurar el estado de los botones en session_state para persistencia
